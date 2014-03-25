@@ -70,6 +70,10 @@ module.exports = function (httpServer, options) {
       } catch (e) {
         return;
       }
+      if(contents.command == 'start'){
+        // on start save current graph to file in graphs (name = graph name (contents.payload.graph))
+        runtime.graph.graphs[contents.payload.graph].save(__dirname + '/../../../../../graphs/' + contents.payload.graph, function(data){});
+      }
       runtime.receive(contents.protocol, contents.command, contents.payload, {
         connection: connection
       });
